@@ -14,8 +14,10 @@ START-OF-SELECTION.
 * Old Syntax:
   DATA gv_carrname TYPE s_carrname.
   DATA gv_url TYPE s_carrurl.
+
   SELECT SINGLE carrname url FROM scarr INTO (gv_carrname, gv_url)
   WHERE carrid = p_carrid.
+
   IF sy-subrc = 0.
     cl_demo_output=>new( )->begin_section(
         'Important Notification' )->write_text(

@@ -28,13 +28,17 @@ START-OF-SELECTION.
   ENDLOOP.
 
 
-***********************************************************************
-** Same goes for Field Symbols:
-*  LOOP AT gt_t005 ASSIGNING FIELD-SYMBOL(<g_t005>).
-*
-*    cl_demo_output=>new( )->begin_section(
-*    'Important Notification' )->write_text(
-*    |Country { <g_t005>-land1 } is part of the EU|
-*      )->display( ).
-*
-*  ENDLOOP.
+
+**********************************************************************
+* Same goes for Field Symbols:
+  LOOP AT gt_t005 ASSIGNING FIELD-SYMBOL(<g_t005>).
+    DATA(ld_irgendwas) = gv_land1.
+    cl_demo_output=>new( )->begin_section(
+    'Important Notification' )->write_text(
+    |Country { <g_t005>-land1 } is part of the EU|
+      )->display( ).
+
+  ENDLOOP.
+
+
+  ld_irgendwas = 'DE'.

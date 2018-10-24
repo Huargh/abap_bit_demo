@@ -23,7 +23,8 @@ START-OF-SELECTION.
       CASE
           WHEN t005~xegld = 'X' THEN 'ist Mitglied der EU'
           ELSE 'ist nicht Mitglied der EU'
-      END AS beschreibung
+      END
+        AS beschreibung
       INTO CORRESPONDING FIELDS OF TABLE @gt_laender
       FROM t005 INNER JOIN t005t
        ON t005~land1 = t005t~land1
