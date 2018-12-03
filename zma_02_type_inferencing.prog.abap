@@ -40,5 +40,11 @@ START-OF-SELECTION.
 
   ENDLOOP.
 
-
-  ld_irgendwas = 'DE'.
+*--> Careful: Scope of the variable is not limited to the LOOP
+  IF gs_t005 IS NOT INITIAL.
+    cl_demo_output=>new( )->begin_section(
+    |Hi! This is gs_t005 speaking.| )->write_text(
+    |I have still some data here:|
+      )->write_data( gs_t005
+      )->display( ).
+  ENDIF.
