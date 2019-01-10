@@ -6,7 +6,8 @@
 REPORT zma_08_filter.
 "Demo on how the Filter function works.
 
-DATA lt_sflight TYPE SORTED TABLE OF sflight WITH UNIQUE KEY carrid connid fldate.
+DATA lt_sflight TYPE SORTED TABLE OF sflight WITH UNIQUE KEY carrid connid fldate
+                                             WITH NON-UNIQUE SORTED KEY carrier_plane COMPONENTS carrid planetype.
 DATA ld_connid TYPE s_conn_id VALUE IS INITIAL.
 PARAMETERS p_carrid TYPE s_carr_id.
 
@@ -20,8 +21,8 @@ INITIALIZATION.
 START-OF-SELECTION.
 
   DATA(lt_upcoming_flights) = FILTER #( lt_sflight WHERE carrid = p_carrid
-*                                                     AND connid <> CONV #( '0000' ) "Workaround, see below
                                                      AND connid <> ld_connid  "Workaround, see below
+*                                                     AND connid <> CONV #( '0000' ) "Or even w/o local variable
                                                      AND fldate >= sy-datum ).
 
   cl_demo_output=>new(
@@ -37,3 +38,13 @@ START-OF-SELECTION.
 *                                                 AND fldate >= sy-datum ).
 
   "2. Try to comment connid in filter-function --> does not work
+
+  "3. Alternative: Use a secondary key. For example you're only flying with A380s on principle
+  CONSTANTS con_plane_a380 TYPE s_planetye VALUE 'A380-800'.
+  DATA(lt_with_secondary) = FILTER #( lt_sflight USING KEY carrier_plane
+                                                 WHERE carrid = p_carrid
+                                                   AND planetype = con_plane_a380 ).
+
+  IF 1 = 2.
+
+  ENDIF.

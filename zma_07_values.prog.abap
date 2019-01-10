@@ -17,7 +17,7 @@ DATA lt_scarr TYPE STANDARD TABLE OF scarr WITH NON-UNIQUE KEY carrid.
 
 * Typing with generic data type #:
 lt_scarr = VALUE #( ( carrid = 'AB' carrname = 'Air Berlin' currcode = 'EUR' url = 'http://www.airberlin.de')
-                    ( carrid = 'AF' carrname = 'Air France' currcode = 'EUR' url = 'http://www.airfrance.fr')  ).
+                ( carrid = 'AF' carrname = 'Air France' currcode = 'EUR' url = 'http://www.airfrance.fr')  ).
 INSERT VALUE #( carrid = 'MA' carrname = 'Aigner Airlines' currcode = 'EUR' url = 'www.aignerair.org' ) INTO TABLE lt_scarr.
 
 
@@ -28,6 +28,7 @@ DATA(lt_scarr_ti) = VALUE ty_scarr( ( carrid = 'AB' carrname = 'Air Berlin' curr
 INSERT VALUE #( carrid = 'MA' carrname = 'Aigner Airlines' currcode = 'EUR' url = 'www.aignerair.org' ) INTO TABLE lt_scarr_ti.
 
 
-IF 1 = 2.
-
+IF 1 = 2. "Conclusion:
+  "The first example would not work with a DATA(lt_scarr) inline declaration: Since we used the generic constructor #, no type can be derived.
+  "In the second example, we use a typed constructor. This allows for lt_scarr_ti to infer the type from ty_scarr.
 ENDIF.
