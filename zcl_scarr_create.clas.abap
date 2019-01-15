@@ -86,7 +86,7 @@ CLASS ZCL_SCARR_CREATE IMPLEMENTATION.
     SELECT SINGLE carrid FROM scarr INTO _ms_scarr-carrid
       WHERE carrid = _ms_scarr-carrid.
 
-    CHECK sy-subrc <> 0.
+    CHECK sy-subrc = 0.
 
     rv_already_exists = abap_true.
 
