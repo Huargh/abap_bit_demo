@@ -16,9 +16,10 @@ DATA lt_scarr TYPE STANDARD TABLE OF scarr WITH NON-UNIQUE KEY carrid.
 *NG     Lauda Air            EUR      http://www.laudaair.com
 
 * Typing with generic data type #:
-lt_scarr = VALUE #( ( carrid = 'AB' carrname = 'Air Berlin' currcode = 'EUR' url = 'http://www.airberlin.de')
-                ( carrid = 'AF' carrname = 'Air France' currcode = 'EUR' url = 'http://www.airfrance.fr')  ).
-INSERT VALUE #( carrid = 'MA' carrname = 'Aigner Airlines' currcode = 'EUR' url = 'www.aignerair.org' ) INTO TABLE lt_scarr.
+lt_scarr = VALUE #( ( carrid = 'AB' carrname = 'Air Berlin' currcode = 'EUR' )
+                    ( carrid = 'AF' carrname = 'Air France' currcode = 'EUR' url = 'http://www.airfrance.fr')
+                 ).
+*INSERT VALUE #( carrid = 'MA' carrname = 'Aigner Airlines' currcode = 'EUR' url = 'www.aignerair.org' ) INTO TABLE lt_scarr.
 
 
 **********************************************************************

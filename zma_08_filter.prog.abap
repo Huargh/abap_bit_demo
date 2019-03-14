@@ -7,7 +7,8 @@ REPORT zma_08_filter.
 "Demo on how the Filter function works.
 
 DATA lt_sflight TYPE SORTED TABLE OF sflight WITH UNIQUE KEY carrid connid fldate
-                                             WITH NON-UNIQUE SORTED KEY carrier_plane COMPONENTS carrid planetype.
+                                             WITH NON-UNIQUE SORTED KEY carrier_plane COMPONENTS carrid planetype
+                                             WITH NON-UNIQUE SORTED KEY carrid_fldate COMPONENTS carrid fldate.
 DATA ld_connid TYPE s_conn_id VALUE IS INITIAL.
 PARAMETERS p_carrid TYPE s_carr_id.
 
@@ -44,7 +45,9 @@ START-OF-SELECTION.
   DATA(lt_with_secondary) = FILTER #( lt_sflight USING KEY carrier_plane
                                                  WHERE carrid = p_carrid
                                                    AND planetype = con_plane_a380 ).
-
+  DATA(lt_heinz) = FILTER #( lt_sflight USING KEY carrid_fldate
+                                                 WHERE carrid = p_carrid
+                                                   AND fldate >= sy-datum ).
   IF 1 = 2.
 
   ENDIF.
