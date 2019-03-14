@@ -22,10 +22,9 @@ DATA:
 **Let's compare
 *MOVE-CORRESPONDING struct1 TO struct2.
 
-
-*"With this:
+**"With this:
 *struct2 = CORRESPONDING #( struct1 ).
-
+*
 *cl_demo_output=>new( )->begin_section( )->write_data( struct2 )->display( ).
 
 
