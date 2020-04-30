@@ -40,14 +40,18 @@ START-OF-SELECTION.
 
   "2. Try to comment connid in filter-function --> does not work
 
-  "3. Alternative: Use a secondary key. For example you're only flying with A380s on principle
+  "3. 1st Alternative: Use a secondary key. For example you're only flying with A380s on principle
   CONSTANTS con_plane_a380 TYPE s_planetye VALUE 'A380-800'.
   DATA(lt_with_secondary) = FILTER #( lt_sflight USING KEY carrier_plane
                                                  WHERE carrid = p_carrid
                                                    AND planetype = con_plane_a380 ).
   DATA(lt_heinz) = FILTER #( lt_sflight USING KEY carrid_fldate
                                                  WHERE carrid = p_carrid
-                                                   AND fldate >= sy-datum ).
+                                                   AND fldate <= sy-datum ).
+  "4. 2nd Alternative: Use FOR .. IN .. WHERE
+  DATA(lt_forinwhere) = VALUE ty_flights( FOR line IN lt_sflight WHERE ( carrid EQ p_carrid AND fldate <= sy-datum ) ( line ) ).
+
+
   IF 1 = 2.
 
   ENDIF.

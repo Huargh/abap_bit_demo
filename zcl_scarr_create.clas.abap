@@ -9,10 +9,12 @@ public section.
       !IP_STRING type STRING
       !IP_SEPARATOR type CHAR1 .
   methods CREATE_SCARR_RECORD .
+  methods CHECK_FLIGHT_SCHEDULE .
 protected section.
 private section.
 
   data _MS_SCARR type SCARR .
+  class-data BOCK type SCARR .
 
   methods _FORMATTING_AND_CONVERSION .
   methods _INPUT_VALIDATION .
@@ -22,11 +24,20 @@ private section.
   methods _SCARR_ALREADY_EXISTS
     returning
       value(RV_ALREADY_EXISTS) type XFELD .
+  class-methods PHILLIP .
 ENDCLASS.
 
 
 
 CLASS ZCL_SCARR_CREATE IMPLEMENTATION.
+
+
+  method CHECK_FLIGHT_SCHEDULE.
+
+    "Benutze die Webseite der Fluggesellschaft
+    "Hole die nächsten 10 Flüge
+
+  endmethod.
 
 
   METHOD constructor.
@@ -43,10 +54,16 @@ CLASS ZCL_SCARR_CREATE IMPLEMENTATION.
 
   METHOD create_scarr_record.
 
-    "--> MODIFY scarr FROM _ms_scarr.
-    "--> Commit Work
+    _input_validation( ).
+*
+*    MODIFY scarr FROM _ms_scarr.
+*    COMMIT WORK.
 
   ENDMETHOD.
+
+
+  method PHILLIP.
+  endmethod.
 
 
   method _FORMATTING_AND_CONVERSION.
@@ -59,7 +76,7 @@ CLASS ZCL_SCARR_CREATE IMPLEMENTATION.
   METHOD _input_validation.
 
     IF _scarr_already_exists( ).
-      RAISE EXCEPTION TYPE zcx_bc_user_cancelled.
+*      RAISE EXCEPTION TYPE zcx_bc_user_cancelled.
     ENDIF.
 
     IF _is_currency_valid( ) = abap_false.
